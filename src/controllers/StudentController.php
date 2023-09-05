@@ -38,7 +38,6 @@ class StudentController
         $studentClasses = $model->findClasesByStudentId($id);
         $classesNotRegistered = $model->findClasesNotRegisteredByStudentId($id);
         include $_SERVER["DOCUMENT_ROOT"] . "/src/views/student/student-class.php";
-        // exit();
     }
 
     public function deleteClassFromStudent()

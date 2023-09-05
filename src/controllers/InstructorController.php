@@ -49,9 +49,27 @@ class InstructorControlller
         $id = $_SESSION["userData"]["id"];
         $model = new Instructor();
         $_POST["user_id"] = $id;
+
+        if ($_POST["email"]) {
+            $this->verifyEmail($_POST["email"]);
+        }
+
         $instructorCreated = $model->update($_POST);
         $message = '<p class="text-center text-green-500">Instructor actualizado correctamente</p>';
         $this->showInstructorInformation($message);
+    }
+
+    public function verifyEmail($email)
+    {
+        if (isset($email)) {
+            $userModel = new User();
+            $emailExist = $userModel->checkExistingEmail($email);
+            if ($emailExist) {
+                $message  = '<p class="text-center text-red-600">El email ya existe</p>';
+                $this->showInstructorInformation($message);
+                exit;
+            }
+        }
     }
 
     public function route($action)

@@ -181,10 +181,11 @@ class Instructor
         $lastname = $request["lastname"];
         $address = $request["address"];
         $birthday = $request["birthday"];
+        $email = $request["email"];
 
         $conn = new DB();
 
-        $query = "UPDATE user SET firstname = :firstname, lastname = :lastname, address = :address,  birthday = :birthday  WHERE id = :user_id;";
+        $query = "UPDATE user SET firstname = :firstname, lastname = :lastname, address = :address,  birthday = :birthday, email = :email  WHERE id = :user_id;";
         $stmnt = $conn->connect()->prepare($query);
 
         $stmnt->bindParam(":user_id", $userId, PDO::PARAM_INT);
@@ -192,6 +193,7 @@ class Instructor
         $stmnt->bindParam(":lastname", $lastname, PDO::PARAM_STR);
         $stmnt->bindParam(":address", $address, PDO::PARAM_STR);
         $stmnt->bindParam(":birthday", $birthday);
+        $stmnt->bindParam(":email", $email, PDO::PARAM_STR);
         $stmnt->execute();
         $rowsChanged = $stmnt->rowCount();
         return 1;

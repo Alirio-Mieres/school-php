@@ -4,6 +4,10 @@
 Sistema escolar para la administración de alumnos, maestros y cursos usando patron MVC.
 
 
+
+## Backup de la base de datos
+- El backup de la base de datos se encuentra en la carpeta `database` con el nombre `school.sql`
+
 ## Usuarios y contraseñas 
 
 - Admin

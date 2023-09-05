@@ -10,6 +10,13 @@
 
             <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/src/templates/nav-admin.php';  ?>
             <main>
+                <?php
+
+                if (isset($message)) {
+                    echo $message;
+                }
+
+                ?>
                 <section class="p-4 ">
                     <div class="flex justify-between mb-4">
                         <h1 class="text-3xl">Dashboard</h1>

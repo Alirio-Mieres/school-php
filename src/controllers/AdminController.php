@@ -16,12 +16,29 @@ class AdminController
     //Students
     public function create($request)
     {
-        $model = new Alumnos();
-        $model->create($request);
+
+        $email = $request["email"];
+        $this->verifyEmail($email);
+
+        $studentModel = new Alumnos();
+        $studentModel->create($request);
+    }
+
+    public function verifyEmail($email)
+    {
+        if (isset($email)) {
+            $userModel = new User();
+            $emailExist = $userModel->checkExistingEmail($email);
+            if ($emailExist) {
+                $message  = '<p class="text-center text-red-600">El email ya existe</p>';
+                include $_SERVER["DOCUMENT_ROOT"] . "/src/views/admin/create-student.php";
+                exit;
+            }
+        }
     }
 
     public function update($request)
-    {
+    {   
         $model = new Alumnos();
         return $model->update($request);
     }
@@ -216,6 +233,8 @@ class AdminController
                 $instructorModel = new Instructor();
                 $_POST["password"] = password_hash($_POST["password"], PASSWORD_DEFAULT);
                 $instructorModel->create($_POST);
+                $email = $_POST["email"];
+                $this->verifyEmail($email);
                 $instructors = $instructorModel->findAllWithUser();
                 include $_SERVER["DOCUMENT_ROOT"] . "/src/views/admin/instructors/table-instructors.php";
                 break;
